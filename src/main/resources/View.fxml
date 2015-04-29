@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity"
             minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="800.0"
             xmlns="http://javafx.com/javafx/8" fx:controller="Controller">
@@ -11,7 +11,46 @@
             <children>
                 <Canvas fx:id="displayCanvas" height="750.0" onMouseClicked="#canvasClicked"
                         onMouseDragged="#canvasDragged" width="800.0"/>
+                <Pane fx:id="infoWindow" layoutX="218.0" layoutY="165.0" prefHeight="421.0" prefWidth="365.0">
+                    <children>
+                        <Button fx:id="infoWindowExit" layoutX="310.0" layoutY="381.0" mnemonicParsing="false"
+                                onAction="#infoWindowExit" text="Exit"/>
+                        <TextArea fx:id="infoWindowNotes" layoutX="12.0" layoutY="242.0" prefHeight="122.0"
+                                  prefWidth="337.0"/>
+                        <TextField fx:id="infoWindowName" layoutX="99.0" layoutY="14.0"/>
+                        <Label fx:id="infoWindowVotingLabel" layoutX="304.0" layoutY="107.0" text="Label"/>
+                        <RadioButton fx:id="radioDemocrat" layoutX="37.0" layoutY="69.0" mnemonicParsing="false"
+                                     text="Democract">
+                            <toggleGroup>
+                                <ToggleGroup fx:id="PartyGroup"/>
+                            </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="radioModerate" layoutX="143.0" layoutY="69.0" mnemonicParsing="false"
+                                     text="Moderate" toggleGroup="$PartyGroup"/>
+                        <RadioButton fx:id="radioRepublican" layoutX="242.0" layoutY="69.0" mnemonicParsing="false"
+                                     text="Republican" toggleGroup="$PartyGroup"/>
+                    </children>
+                </Pane>
             </children>
         </Pane>
     </center>
+    <top>
+        <MenuBar prefHeight="29.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#menuSave" text="Save"/>
+                        <MenuItem mnemonicParsing="false" onAction="#menuLoad" text="Load"/>
+                        <MenuItem mnemonicParsing="false" onAction="#menuImport" text="Import"/>
+                        <MenuItem mnemonicParsing="false" onAction="#menuClear" text="Clear"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Reps">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#menuAdd" text="Add"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
 </BorderPane>

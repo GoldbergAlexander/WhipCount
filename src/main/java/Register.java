@@ -2,7 +2,7 @@
  * Created by Alexander Goldberg (alexander.goldberg25@uga.edu) on 4/25/15.
  */
 public class Register {
-    public static Representative[] representatives = new Representative[0];
+    private static Representative[] representatives = new Representative[0];
 
     public static void add(Representative rep) {
         Representative[] temp;
@@ -37,6 +37,40 @@ public class Register {
             }
         }
         return null;
+    }
+
+    public static double getYAYCount() {
+        int a = 0;
+        for (int i = 0; i < representatives.length; i++) {
+            if (representatives[i].getStance() == Stance.YAY) {
+                a++;
+            }
+        }
+        return a;
+    }
+
+    public static double getNAYCount() {
+        int a = 0;
+        for (int i = 0; i < representatives.length; i++) {
+            if (representatives[i].getStance() == Stance.NAY) {
+                a++;
+            }
+        }
+        return a;
+    }
+
+    public static double getABSCount() {
+        int a = 0;
+        for (int i = 0; i < representatives.length; i++) {
+            if (representatives[i].getStance() == Stance.ABS) {
+                a++;
+            }
+        }
+        return a;
+    }
+
+    public static void clear() {
+        representatives = new Representative[0];
     }
 
 }
