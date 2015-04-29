@@ -2,6 +2,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
@@ -97,6 +99,36 @@ public class Controller implements Initializable {
 
     @FXML
     protected void menuStats() {
+        Stage stage1 = new Stage();
+        stage1.setTitle("Statistics For Vote");
+        Group group = new Group();
+        stage1.setScene(new Scene(group));
+
+        VBox flowPane = new VBox();
+        //flowPane.setPrefSize(300,500);
+
+        flowPane.setPadding(new Insets(10));
+        flowPane.getChildren().add(new Label("YEA Count: " + Register.getYAYCount()));
+        flowPane.getChildren().add(new Label("NAY Count: " + Register.getNAYCount()));
+        flowPane.getChildren().add(new Label("ABS Count: " + Register.getABSCount()));
+        flowPane.getChildren().add(new Label("Passing: " + Register.majority()));
+        if (!Register.majority()) {
+            int neededVote = 0;
+            for (int i = 0; i < Register.getList().length; i++) {
+                double yea = Register.getYAYCount() + i;
+                double nay = Register.getNAYCount() - i;
+                if (yea / (yea + nay) >= breakPoint) {
+                    neededVote = i;
+                    break;
+                }
+            }
+
+            flowPane.getChildren().add(new Label("Votes Needed from Nays: " + neededVote));
+        }
+
+
+        group.getChildren().add(flowPane);
+        stage1.show();
 
     }
 

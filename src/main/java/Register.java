@@ -15,7 +15,7 @@ public class Register {
     }
 
     public static Representative[] getList() {
-        return representatives; //TODO Make Secure
+        return representatives;
     }
 
     public static Representative getRepresentative(double x, double y) {
