@@ -4,7 +4,9 @@
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 import java.text.DecimalFormat;
 
@@ -40,10 +42,37 @@ public class Draw {
             nay = Register.getNAYCount();
             var = yay / (yay + nay);
             gc.setGlobalAlpha(.9);
-            gc.fillText("Vote: " + new DecimalFormat("#.###").format(var), canvas.getWidth() - 70, canvas.getWidth() - 100);
+            gc.fillText("Vote: " + new DecimalFormat("#.###").format(var), canvas.getWidth() - 60, canvas.getWidth() - 85);
         } catch (ArithmeticException e) {
 
         }
+
+    }
+
+    public static void label(Canvas canvas) {
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.save();
+        gc.setFill(Color.WHITE);
+        gc.setStroke(Color.BLACK);
+        gc.setEffect(new DropShadow());
+        gc.setGlobalAlpha(.3);
+        gc.setFont(new Font(50));
+
+        if (Register.majority()) {
+            gc.setGlobalAlpha(.8);
+        }
+        gc.strokeText("YEA", 100, canvas.getHeight() / 2 - 50);
+        gc.fillText("YEA", 100, canvas.getHeight() / 2 - 50);
+        gc.setGlobalAlpha(.3);
+
+        if (!Register.majority()) {
+            gc.setGlobalAlpha(.8);
+        }
+        gc.strokeText("NAY", canvas.getWidth() - 200, canvas.getHeight() / 2 - 50);
+        gc.fillText("NAY", canvas.getWidth() - 200, canvas.getHeight() / 2 - 50);
+
+
+        gc.restore();
 
     }
 
@@ -51,6 +80,7 @@ public class Draw {
         fill(canvas);
         grid(canvas);
         stats(canvas);
+        label(canvas);
         Representative[] representatives = Register.getList();
         for (int i = 0; i < representatives.length; i++) {
             representatives[i].draw();

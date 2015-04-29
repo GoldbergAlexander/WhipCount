@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
 
 
+    public static double breakPoint = .5;
     final FileChooser fileChooser = new FileChooser();
     @FXML
     protected Canvas displayCanvas;
@@ -45,7 +46,6 @@ public class Controller implements Initializable {
     @FXML
     protected Stage stage;
     protected File fileSaveLocation;
-
     protected Representative tempRep;
 
     @FXML
@@ -96,8 +96,18 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    protected void menuPoll() {
+    protected void menuStats() {
 
+    }
+
+    @FXML
+    protected void menuSuper() {
+        breakPoint = .66;
+    }
+
+    @FXML
+    protected void menuMajority() {
+        breakPoint = .5;
     }
 
 
@@ -182,6 +192,7 @@ public class Controller implements Initializable {
         infoWindow.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, new CornerRadii(3.0), new Insets(0))));
         infoWindow.setEffect(new DropShadow());
         PartyGroup.selectToggle(radioModerate);
+        Draw.reset(displayCanvas);
     }
 
     public void setParent(Stage widget) {

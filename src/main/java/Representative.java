@@ -150,7 +150,7 @@ public class Representative {
             this.color = Color.PURPLE;
         }
         draw(); //Draw to board
-
     }
+
 
 }

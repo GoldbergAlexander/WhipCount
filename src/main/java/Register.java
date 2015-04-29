@@ -69,6 +69,18 @@ public class Register {
         return a;
     }
 
+    public static boolean majority() {
+        try {
+            if (getYAYCount() / (getYAYCount() + getNAYCount()) >= Controller.breakPoint) {
+                return true;
+            }
+        } catch (ArithmeticException e) {
+
+        }
+        return false;
+    }
+
+
     public static void clear() {
         representatives = new Representative[0];
     }
