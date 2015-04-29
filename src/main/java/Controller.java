@@ -8,6 +8,8 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.ResourceBundle;
@@ -19,64 +21,62 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
 
 
+    final FileChooser fileChooser = new FileChooser();
     @FXML
     protected Canvas displayCanvas;
-
-
     @FXML
     protected BorderPane borderPane;
-
     @FXML
     protected Pane graphicsPane;
-
     @FXML
     protected Button infoWindowExit;
-
     @FXML
     protected TextField infoWindowName;
-
     @FXML
     protected TextArea infoWindowNotes;
-
     @FXML
     protected Pane infoWindow;
-
     @FXML
     protected Label infoWindowVotingLabel;
-
     @FXML
     protected ToggleGroup PartyGroup;
-
     @FXML
     protected RadioButton radioRepublican, radioDemocrat, radioModerate;
-
-    protected String fileSaveLocation = "data.csv";
+    @FXML
+    protected Stage stage;
+    protected File fileSaveLocation;
 
     protected Representative tempRep;
 
     @FXML
     protected void menuLoad() {
-        File file = new File(fileSaveLocation);
-        Representative[] list = new FileReader(file).readFile(displayCanvas);
-        for (int i = 0; i < list.length; i++) {
-            Register.add(list[i]);
+        configureFileChooser(fileChooser);
+        fileSaveLocation = fileChooser.showOpenDialog(stage);
+        if (fileSaveLocation != null) {
+            Representative[] list = new FileReader(fileSaveLocation).readFile(displayCanvas);
+            for (int i = 0; i < list.length; i++) {
+                Register.add(list[i]);
+            }
         }
     }
 
     @FXML
     protected void menuImport() {
-        File file = new File(fileSaveLocation);
-        Representative[] tmp = new FileReader(file).readFile(displayCanvas);
-        for (int i = 0; i < tmp.length; i++) {
-            tmp[i].setStance(tmp[i].getStance());
-            tmp[i].setY(i * 35);
-        }
+        configureFileChooser(fileChooser);
+        fileSaveLocation = fileChooser.showSaveDialog(stage);
+        if (fileSaveLocation != null) {
+            Representative[] tmp = new FileReader(fileSaveLocation).readFile(displayCanvas);
+            for (int i = 0; i < tmp.length; i++) {
+                tmp[i].setStance(tmp[i].getStance());
+                tmp[i].setY(i * 35);
+            }
 
-        for (int i = 0; i < tmp.length; i++) {
+            for (int i = 0; i < tmp.length; i++) {
 
-            Register.add(tmp[i]);
+                Register.add(tmp[i]);
+            }
+            Draw.reset(displayCanvas);
         }
-        Draw.reset(displayCanvas);
 
     }
 
@@ -88,16 +88,18 @@ public class Controller implements Initializable {
 
     @FXML
     protected void menuSave() {
-        System.out.println("DEBUG:Saving");
-        fileSaveLocation = "newCSV.csv";
-        File file = new File(fileSaveLocation);
-        new FileWriter(file).write(Register.getList());
+        configureFileChooser(fileChooser);
+        fileSaveLocation = fileChooser.showSaveDialog(stage);
+        if (fileSaveLocation != null) {
+            new FileWriter(fileSaveLocation).write(Register.getList());
+        }
     }
 
     @FXML
     protected void menuPoll() {
 
     }
+
 
     @FXML
     protected void menuAdd() {
@@ -127,6 +129,7 @@ public class Controller implements Initializable {
 
                 }
                 infoWindowVotingLabel.setText(temp.getStance().toString());
+                infoWindowNotes.setText(temp.getNotes());
                 tempRep = temp;
             }
         }
@@ -179,6 +182,18 @@ public class Controller implements Initializable {
         infoWindow.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, new CornerRadii(3.0), new Insets(0))));
         infoWindow.setEffect(new DropShadow());
         PartyGroup.selectToggle(radioModerate);
+    }
+
+    public void setParent(Stage widget) {
+        stage = widget;
+    }
+
+    private void configureFileChooser(FileChooser filer) {
+        filer.setInitialDirectory(new File(System.getProperty("user.home")));
+        filer.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("CSV", "*.csv")
+        );
+
     }
 
 
