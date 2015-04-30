@@ -65,7 +65,7 @@ public class Controller implements Initializable {
     @FXML
     protected void menuImport() {
         configureFileChooser(fileChooser);
-        fileSaveLocation = fileChooser.showSaveDialog(stage);
+        fileSaveLocation = fileChooser.showOpenDialog(stage);
         if (fileSaveLocation != null) {
             Representative[] tmp = new FileReader(fileSaveLocation).readFile(displayCanvas);
             for (int i = 0; i < tmp.length; i++) {
