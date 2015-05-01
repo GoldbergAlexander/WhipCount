@@ -4,14 +4,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="800.0"
+            minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0"
             xmlns="http://javafx.com/javafx/8" fx:controller="Controller">
     <center>
         <Pane fx:id="graphicsPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
                 <Canvas fx:id="displayCanvas" height="750.0" onMouseClicked="#canvasClicked"
-                        onMouseDragged="#canvasDragged" width="800.0"/>
-                <Pane fx:id="infoWindow" layoutX="218.0" layoutY="165.0" prefHeight="421.0" prefWidth="365.0">
+                        onMouseDragged="#canvasDragged" width="1000.0"/>
+                <Pane fx:id="infoWindow" layoutX="318.0" layoutY="165.0" prefHeight="421.0" prefWidth="365.0">
                     <children>
                         <Button fx:id="infoWindowExit" layoutX="310.0" layoutY="381.0" mnemonicParsing="false"
                                 onAction="#infoWindowExit" text="Exit"/>

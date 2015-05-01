@@ -22,7 +22,6 @@ import java.util.ResourceBundle;
  */
 public class Controller implements Initializable {
 
-
     public static double breakPoint = .5;
     final FileChooser fileChooser = new FileChooser();
     @FXML
@@ -49,6 +48,7 @@ public class Controller implements Initializable {
     protected Stage stage;
     protected File fileSaveLocation;
     protected Representative tempRep;
+    private Representative selected;
 
     @FXML
     protected void menuLoad() {
@@ -80,24 +80,41 @@ public class Controller implements Initializable {
     }
 
     private void cleanUpReps(Representative[] tmp) {
+        int height = 24;
+        int width = 20;
         int a = 0, y = 0, n = 0;
+        int aw = 0, yw = 0, nw = 0;
         for (int i = 0; i < tmp.length; i++) {
             tmp[i].setStance(tmp[i].getStance());
             switch (tmp[i].getStance()) {
                 case ABS:
-                    tmp[i].setY(a * 35);
+                    if (a * height > displayCanvas.getHeight() - 200) {
+                        a = 0;
+                        aw++;
+                    }
+                    tmp[i].setY(a * height);
+                    tmp[i].setX((aw * width) + tmp[i].getX());
                     a++;
                     break;
                 case YAY:
-                    tmp[i].setY(y * 35);
+                    if (y * height > displayCanvas.getHeight() - 200) {
+                        y = 0;
+                        yw++;
+                    }
+                    tmp[i].setY(y * height);
+                    tmp[i].setX(yw * width + tmp[i].getX());
                     y++;
                     break;
                 case NAY:
-                    tmp[i].setY(n * 35);
+                    if (n * height > displayCanvas.getHeight() - 200) {
+                        n = 0;
+                        nw++;
+                    }
+                    tmp[i].setY(n * height);
+                    tmp[i].setX(nw * width + tmp[i].getX() - 60);
                     n++;
                     break;
             }
-
         }
     }
 
@@ -198,8 +215,25 @@ public class Controller implements Initializable {
                 infoWindowVotingLabel.setText(temp.getStance().toString());
                 infoWindowNotes.setText(temp.getNotes());
                 tempRep = temp;
+                selected = null;
             }
         }
+
+        if (event.getClickCount() == 1) {
+            if (selected == null) {
+                selected = Register.getRepresentative(event.getX(), event.getY());
+                return;
+            }
+            if (selected != null) {
+                selected.setX(event.getX());
+                selected.setY(event.getY());
+                Draw.reset(displayCanvas);
+                selected = null;
+                return;
+            }
+        }
+
+
     }
 
     @FXML

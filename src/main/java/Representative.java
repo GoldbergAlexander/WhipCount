@@ -8,7 +8,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 
 public class Representative {
-    private double x, y, width = 150, height = 30, radius = 1;
+    private double x, y, width = 150, height = 20, radius = 1;
     private Canvas canvas;
     private GraphicsContext gc;
     private Color color;
@@ -52,7 +52,7 @@ public class Representative {
         gc.setEffect(null);
         gc.setStroke(Color.DARKGREY);
         gc.setFill(Color.DARKGREY);
-        gc.fillText(name, x + 4, y + height - 10); //TODO make Dynamic
+        gc.fillText(name, x + 4, y + height - 5); //TODO make Dynamic
     }
 
     public double getX() {
@@ -60,6 +60,9 @@ public class Representative {
     }
 
     public void setX(double x) {
+        if (x + width > canvas.getWidth()) {
+            x = canvas.getWidth() - width;
+        }
         if (x >= 0 && x <= canvas.getWidth() - width) {
             this.x = x;
             x = x + (width / 2);
@@ -78,6 +81,9 @@ public class Representative {
     }
 
     public void setY(double y) {
+        if (y > canvas.getHeight() - height) {
+            y = canvas.getHeight() - height;
+        }
         if (y >= 0 && y <= canvas.getHeight() - height) {
             this.y = y;
         }
