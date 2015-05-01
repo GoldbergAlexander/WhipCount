@@ -19,24 +19,26 @@ public class Register {
     }
 
     public static Representative getRepresentative(double x, double y) {
+        Representative temp = null;
         for (int i = 0; i < representatives.length; i++) {
             if ((representatives[i].getX() < x && representatives[i].getX() + representatives[i].getWidth() > x) && (representatives[i].getY() < y && representatives[i].getY() + representatives[i].getHeight() > y)) {
-                return representatives[i];
+                temp = representatives[i];
             }
         }
-        return null;
+        return temp;
     }
 
     //This adds a margin of error around the Visual Tag // TODO Find A Better Solution to getRepresentativeOnDrag
     public static Representative getRepresentativeOnDrag(double x, double y) {
+        Representative temp = null;
         for (int i = 0; i < representatives.length; i++) {
             if (((representatives[i].getX() < x + representatives[i].getWidth()) && (representatives[i].getX() + representatives[i].getWidth() > x))) {
                 if (((representatives[i].getY() < y + representatives[i].getHeight()) && representatives[i].getY() + representatives[i].getHeight() > y)) {
-                    return representatives[i];
+                    temp = representatives[i];
                 }
             }
         }
-        return null;
+        return temp;
     }
 
     public static double getYAYCount() {

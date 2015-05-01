@@ -111,7 +111,7 @@ public class Controller implements Initializable {
                         nw++;
                     }
                     tmp[i].setY(n * height);
-                    tmp[i].setX(nw * width + tmp[i].getX() - 60);
+                    tmp[i].setX(tmp[i].getX() - (nw * width));
                     n++;
                     break;
             }
