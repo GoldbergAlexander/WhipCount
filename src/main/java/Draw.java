@@ -52,24 +52,25 @@ public class Draw {
     public static void label(Canvas canvas) {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.save();
-        gc.setFill(Color.WHITE);
         gc.setStroke(Color.BLACK);
         gc.setEffect(new DropShadow());
-        gc.setGlobalAlpha(.3);
+        gc.setGlobalAlpha(.7);
         gc.setFont(new Font(50));
 
         if (Register.majority()) {
-            gc.setGlobalAlpha(.8);
+            gc.setGlobalAlpha(.9);
         }
-        gc.strokeText("YEA", 100, canvas.getHeight() / 2 - 50);
-        gc.fillText("YEA", 100, canvas.getHeight() / 2 - 50);
-        gc.setGlobalAlpha(.3);
+        gc.setFill(Color.DARKGREEN);
+        gc.strokeText("YEA: " + (int) Register.getYAYCount(), 75, canvas.getHeight() - 100);
+        gc.fillText("YEA:" + (int) Register.getYAYCount(), 75, canvas.getHeight() - 100);
+        gc.setGlobalAlpha(.7);
 
         if (!Register.majority()) {
-            gc.setGlobalAlpha(.8);
+            gc.setGlobalAlpha(.9);
         }
-        gc.strokeText("NAY", canvas.getWidth() - 200, canvas.getHeight() / 2 - 50);
-        gc.fillText("NAY", canvas.getWidth() - 200, canvas.getHeight() / 2 - 50);
+        gc.setFill(Color.DARKRED);
+        gc.strokeText("NAY: " + (int) Register.getNAYCount(), canvas.getWidth() - 250, canvas.getHeight() - 100);
+        gc.fillText("NAY: " + (int) Register.getNAYCount(), canvas.getWidth() - 250, canvas.getHeight() - 100);
 
 
         gc.restore();

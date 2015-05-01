@@ -55,6 +55,7 @@
                         <MenuItem mnemonicParsing="false" onAction="#menuStats" text="Stats"/>
                         <MenuItem mnemonicParsing="false" onAction="#menuSuper" text="Set Super"/>
                         <MenuItem mnemonicParsing="false" onAction="#menuMajority" text="Set Majority"/>
+                        <MenuItem mnemonicParsing="false" onAction="#menuClean" text="Clean Up"/>
                     </items>
                 </Menu>
             </menus>

@@ -68,10 +68,7 @@ public class Controller implements Initializable {
         fileSaveLocation = fileChooser.showOpenDialog(stage);
         if (fileSaveLocation != null) {
             Representative[] tmp = new FileReader(fileSaveLocation).readFile(displayCanvas);
-            for (int i = 0; i < tmp.length; i++) {
-                tmp[i].setStance(tmp[i].getStance());
-                tmp[i].setY(i * 35);
-            }
+            cleanUpReps(tmp);
 
             for (int i = 0; i < tmp.length; i++) {
 
@@ -80,6 +77,28 @@ public class Controller implements Initializable {
             Draw.reset(displayCanvas);
         }
 
+    }
+
+    private void cleanUpReps(Representative[] tmp) {
+        int a = 0, y = 0, n = 0;
+        for (int i = 0; i < tmp.length; i++) {
+            tmp[i].setStance(tmp[i].getStance());
+            switch (tmp[i].getStance()) {
+                case ABS:
+                    tmp[i].setY(a * 35);
+                    a++;
+                    break;
+                case YAY:
+                    tmp[i].setY(y * 35);
+                    y++;
+                    break;
+                case NAY:
+                    tmp[i].setY(n * 35);
+                    n++;
+                    break;
+            }
+
+        }
     }
 
     @FXML
@@ -146,6 +165,12 @@ public class Controller implements Initializable {
     @FXML
     protected void menuAdd() {
         Register.add(new Representative(displayCanvas));
+    }
+
+    @FXML
+    protected void menuClean() {
+        cleanUpReps(Register.getList());
+        Draw.reset(displayCanvas);
     }
 
 
